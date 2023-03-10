@@ -6,6 +6,9 @@ package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.Media;
+
+import java.nio.file.Paths;
 
 /**
  *
@@ -15,6 +18,7 @@ public class Ballgrid {
 
     private int startx;
     private int starty;
+    public boolean girarbola=false;
     private static final int ROWS = 12;
     private static final int COLS = 8;
     private static final int MIN_BALLS_CONECT = 3;
@@ -81,14 +85,16 @@ public class Ballgrid {
             for (int i = 0; i < this.bubblegrid.length && !colision; i++) {
                 for (int j = 0; j < this.bubblegrid[i].length && !colision; j++) {
                     if (this.bubblegrid[i][j] != null && b.getPosicion().distance(this.bubblegrid[i][j].getPosicion()) <= 16) {
-                        b.stop();;
+                        b.stop();
                         colision = true;
 
                         this.bubblegrid[i][j+1] = b;
-                        b.setPosicion(new Point2D(this.bubblegrid[i][j].getPosicion().getX(), this.bubblegrid[i][j+1].getPosicion().getY()));
-
+                        if(j%2==0){
+                            b.setPosicion(new Point2D(this.bubblegrid[i][j].getPosicion().getX()+8, this.bubblegrid[i][j+1].getPosicion().getY()));
+                        }else {
+                            b.setPosicion(new Point2D(this.bubblegrid[i][j].getPosicion().getX()-8, this.bubblegrid[i][j + 1].getPosicion().getY()));
+                        }
                     }
-
                 }
             }
             return colision;

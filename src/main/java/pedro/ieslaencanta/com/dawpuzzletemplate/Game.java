@@ -10,6 +10,10 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+
+import java.io.File;
+import java.nio.file.Paths;
 
 
 /**
@@ -20,6 +24,8 @@ import javafx.scene.input.KeyCode;
  * @see Clock Board
  */
 public class Game implements IWarnClock, IKeyListener {
+
+
 
     public static final int SCALE = 3;
     public static Image imagenes = null;
