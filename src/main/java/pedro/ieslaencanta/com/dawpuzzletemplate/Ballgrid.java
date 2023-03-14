@@ -6,9 +6,6 @@ package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.media.Media;
-
-import java.nio.file.Paths;
 
 /**
  *
@@ -18,26 +15,25 @@ public class Ballgrid {
 
     private int startx;
     private int starty;
-    public boolean girarbola=false;
     private static final int ROWS = 12;
     private static final int COLS = 8;
     private static final int MIN_BALLS_CONECT = 3;
     private Bubble bubblegrid[][];
 
     public Ballgrid() {
-        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
+        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
     }
 
     public Ballgrid(int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
+        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
     }
 
     public Ballgrid(BubbleType matrix[][], int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
+        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
         //matrix = BubbleType.values();
     }
 
@@ -70,40 +66,51 @@ public class Ballgrid {
     }
 
     public boolean colision(Bubble b) {
-        int f, c;
+        int f = 0, c = 0;
         boolean colision = false;
         if (b.getPosicion().getY() - (Bubble.WIDTH / 2) <= this.starty) {
             b.stop();
-            f = 0;//(int)((b.getPosicion().getY()-this.starty)/Bubble.HEIGHT);
+            f = (int) ((b.getPosicion().getY() - this.starty) / Bubble.HEIGHT);
             c = (int) ((b.getPosicion().getX() - this.startx) / Bubble.WIDTH);
             this.bubblegrid[f][c] = b;
             //calculamos la posicion de la bola donde tenemos que moverla(dist*pos+1/2de la dist
-            b.setPosicion(new Point2D(this.startx + Bubble.WIDTH * c + Bubble.WIDTH / 2, this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
+            b.setPosicion(new Point2D(this.startx + Bubble.WIDTH * c + Bubble.WIDTH / 2,
+                    this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
             return true;
         } else {
-
             for (int i = 0; i < this.bubblegrid.length && !colision; i++) {
                 for (int j = 0; j < this.bubblegrid[i].length && !colision; j++) {
                     if (this.bubblegrid[i][j] != null && b.getPosicion().distance(this.bubblegrid[i][j].getPosicion()) <= 16) {
                         b.stop();
                         colision = true;
+                        f = (int) ((b.getPosicion().getY() - this.starty) / Bubble.HEIGHT);
+                        c = (int) ((b.getPosicion().getX() - this.startx) / Bubble.WIDTH);
+                        this.bubblegrid[f][c] = b;
+                        if (f % 2 == 0) {
+                            //c = (int)((b.getPosicion().getX() - this.startx - Bubble.WIDTH / 2) / Bubble.WIDTH);
 
-                        this.bubblegrid[i][j+1] = b;
-                        if(j%2==0){
-                            b.setPosicion(new Point2D(this.bubblegrid[i][j].getPosicion().getX()+8, this.bubblegrid[i][j+1].getPosicion().getY()));
-                        }else {
-                            b.setPosicion(new Point2D(this.bubblegrid[i][j].getPosicion().getX()-8, this.bubblegrid[i][j + 1].getPosicion().getY()));
+                            b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH/2,
+                                    this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT / 2));
+
+
+
+                            //Las burbujas en las filas impares
+                        } else {
+
+                            b.setPosicion(new Point2D( this.startx + Bubble.WIDTH * c + Bubble.WIDTH ,
+                                    this.starty + Bubble.HEIGHT * f + Bubble.HEIGHT/2));
+
+
+
+
                         }
                     }
+
                 }
             }
             return colision;
         }
     }
-
-
-
-     
 
     public void paint(GraphicsContext gc) {
         for (int i = 0; i < this.bubblegrid.length; i++) {
