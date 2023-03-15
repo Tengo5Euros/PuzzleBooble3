@@ -34,6 +34,7 @@ public class Board implements IKeyListener {
     private Bubble ball;
     private Shuttle shuttle;
     private Ballgrid grid;
+    private Level[] levels;
     /**
      * constructor
      *

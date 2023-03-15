@@ -21,19 +21,19 @@ public class Ballgrid {
     private Bubble bubblegrid[][];
 
     public Ballgrid() {
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
 
     public Ballgrid(int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
 
     public Ballgrid(BubbleType matrix[][], int startx, int starty) {
         this.startx = startx;
         this.starty = starty;
-        this.bubblegrid = new Bubble[Ballgrid.COLS][Ballgrid.ROWS];
+        this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
         //matrix = BubbleType.values();
     }
 
@@ -64,6 +64,19 @@ public class Ballgrid {
     public void setStarty(int starty) {
         this.starty = starty;
     }
+   /* public boolean explosion(Bubble b){
+    boolean explotado=false;
+    for (int i=0; i< this.bubblegrid.length; i++){
+        for (int j=0; j< this.bubblegrid[i].length; j++){
+            if (this.bubblegrid[i][j] !=null && b.getPosicion().getY()){
+
+            }
+        }
+    }
+
+    return explotado;
+    }
+    */
 
     public boolean colision(Bubble b) {
         int f = 0, c = 0;
