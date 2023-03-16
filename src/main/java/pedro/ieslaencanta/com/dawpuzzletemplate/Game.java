@@ -34,6 +34,8 @@ public class Game implements IWarnClock, IKeyListener {
     private Dimension2D original_size;
     private Board board;
     private GraphicsContext ctx, bg_context;
+
+
     /**
      * constructor
      * @param context

@@ -20,7 +20,7 @@ public class Ballgrid {
     private static final int MIN_BALLS_CONECT = 3;
     private Bubble bubblegrid[][];
 
-    public Ballgrid() {
+    public Ballgrid(BubbleType[][] matrix) {
         this.bubblegrid = new Bubble[Ballgrid.ROWS][Ballgrid.COLS];
     }
 

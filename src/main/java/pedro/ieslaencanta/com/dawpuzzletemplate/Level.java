@@ -1,9 +1,8 @@
 package pedro.ieslaencanta.com.dawpuzzletemplate;
 
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 public class Level {
     private String sound;
@@ -13,39 +12,29 @@ public class Level {
     private GraphicsContext bggc;
     private String background_top;
     private String background_down;
-    private Point2D topposition;
-    private Point2D downposition;
+
+    private Dimension2D tablero;
     private int starty;
-    private BubbleType matrix;
+    private BubbleType[][] matrix;
 
-    public Level(int starty, BubbleType matrix, int x, int y,int level){
-
-        this.setStarty(starty);
-        this.setMatrix(matrix);
-        this.setSound(new String());
-        this.level=level;
-        this.setBackground_down(new String());
-        this.setTopposition(new Point2D(x,y));
-        this.setDownposition(new Point2D(x,y));
+    public Level(){
+    this.tablero= tablero;
+    this.setMatrix(new BubbleType[5][5]);
     }
-    public Level(BubbleType matrix){
-        this.setMatrix(matrix);
+
+    public Level(int x, int y, BubbleType[][] matrix, int starty){
+        this.matrix= matrix;
+        this.starty=starty;
+
+
+
+    }
+    public Level(BubbleType[] matrix){
+
     }
 
     public void paintBackground(GraphicsContext gc){
-        Image imagen = Resources.getInstance().getImage("fondos");
-        if(level==1){
-            this.bggc.drawImage(imagen, 16, 17,this.original_size.getWidth(),this.original_size.getHeight(),0,0,
-                    this.original_size.getWidth()*Game.SCALE,this.original_size.getHeight()*Game.SCALE);
-        }
-        if (level==2){
-            this.bggc.drawImage(imagen, 344, 17,this.original_size.getWidth(),this.original_size.getHeight(),0,0,
-                    this.original_size.getWidth()*Game.SCALE,this.original_size.getHeight()*Game.SCALE);
-        }
-        if (level==3){
-            this.bggc.drawImage(imagen, 16, 544,this.original_size.getWidth(),this.original_size.getHeight(),0,0,
-                    this.original_size.getWidth()*Game.SCALE,this.original_size.getHeight()*Game.SCALE);
-        }
+
 
     }
 
@@ -73,21 +62,7 @@ public class Level {
         this.background_down = background_down;
     }
 
-    public Point2D getTopposition() {
-        return topposition;
-    }
 
-    public void setTopposition(Point2D topposition) {
-        this.topposition = topposition;
-    }
-
-    public Point2D getDownposition() {
-        return downposition;
-    }
-
-    public void setDownposition(Point2D downposition) {
-        this.downposition = downposition;
-    }
 
     public int getStarty() {
         return starty;
@@ -97,11 +72,20 @@ public class Level {
         this.starty = starty;
     }
 
-    public BubbleType getMatrix() {
+
+    public BubbleType[][] getMatrix() {
         return matrix;
     }
 
-    public void setMatrix(BubbleType matrix) {
+    public void setMatrix(BubbleType[][] matrix) {
         this.matrix = matrix;
+    }
+
+    public Dimension2D getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(Dimension2D tablero) {
+        this.tablero = tablero;
     }
 }

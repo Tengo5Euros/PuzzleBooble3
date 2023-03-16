@@ -10,7 +10,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.E;
 import javafx.scene.paint.Color;
 
 /**
@@ -28,6 +27,7 @@ public class Board implements IKeyListener {
     private GraphicsContext gc;
     private GraphicsContext bggc;
     private Dimension2D original_size;
+    private BubbleType colores;
 
     private boolean debug;
     private boolean left_press, right_press;
@@ -35,6 +35,7 @@ public class Board implements IKeyListener {
     private Shuttle shuttle;
     private Ballgrid grid;
     private Level[] levels;
+    private int nivel_actual;
     /**
      * constructor
      *
@@ -49,11 +50,32 @@ public class Board implements IKeyListener {
         this.shuttle = new Shuttle(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 20)));
         this.debug = false;
         this.grid = new Ballgrid((int) this.game_zone.getMinX(), (int) this.game_zone.getMinY());
+        this.init(nivel_actual);
     }
 
     /**
      * muestra el grid
      */
+
+    public void CreateLevel(){
+        int nivel_actual=0;
+        setLevels(new Level[3]);
+        this.getLevels()[0]= new Level();
+    }
+
+    public void init(int nivel_actual){
+        this.setLevels(new Level[3]);
+        this.grid= new Ballgrid(this.levels[nivel_actual].getMatrix());
+        BubbleType[][] level1 = {
+                {this.colores.BLUE, this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE},
+                {this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE},
+                {this.colores.BLUE, this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE},
+                {this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE,this.colores.BLUE}
+
+        };
+
+        this.getLevels()[0]= new Level(6,7,level1, 0);
+    }
     private void Debug() {
         this.bggc.setStroke(Color.RED);
         for (int i = 0; i < 12; i++) {
@@ -219,4 +241,11 @@ public class Board implements IKeyListener {
 
     }
 
+    public Level[] getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Level[] levels) {
+        this.levels = levels;
+    }
 }
